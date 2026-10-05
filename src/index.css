@@ -1,0 +1,344 @@
+@import "tailwindcss";
+
+/* ---------- Themes: early-2000s web, rebuilt for today ---------- */
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "catch22";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: #0c0b2e;
+  --color-base-200: #15134a;
+  --color-base-300: #221f66;
+  --color-base-content: #eaf6ff;
+  --color-primary: #00e0ff;
+  --color-primary-content: #00131a;
+  --color-secondary: #ff3fb4;
+  --color-secondary-content: #25001a;
+  --color-accent: #c6ff3d;
+  --color-accent-content: #131a00;
+  --color-neutral: #2a2670;
+  --color-neutral-content: #eaf6ff;
+  --color-info: #4dc3ff;
+  --color-info-content: #001622;
+  --color-success: #3dffa0;
+  --color-success-content: #00200f;
+  --color-warning: #ffd23d;
+  --color-warning-content: #231a00;
+  --color-error: #ff5470;
+  --color-error-content: #2a0008;
+  --radius-selector: 0.4rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 2px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "catch22-light";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+  --color-base-100: #f3f6ff;
+  --color-base-200: #e1e9ff;
+  --color-base-300: #c8d5ff;
+  --color-base-content: #14123f;
+  --color-primary: #0a63ff;
+  --color-primary-content: #ffffff;
+  --color-secondary: #ff2fa5;
+  --color-secondary-content: #ffffff;
+  --color-accent: #7ad000;
+  --color-accent-content: #0d1a00;
+  --color-neutral: #14123f;
+  --color-neutral-content: #f3f6ff;
+  --color-info: #0a9bff;
+  --color-info-content: #00152a;
+  --color-success: #00b86b;
+  --color-success-content: #00200f;
+  --color-warning: #ffb800;
+  --color-warning-content: #231a00;
+  --color-error: #e5254b;
+  --color-error-content: #ffffff;
+  --radius-selector: 0.4rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 2px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --font-display: "Rubik", "Trebuchet MS", system-ui, sans-serif;
+  --font-pixel: "Silkscreen", "Courier New", monospace;
+  --font-sans: "DM Sans", "Trebuchet MS", system-ui, sans-serif;
+}
+
+/* Colours used by our own retro pieces */
+:root,
+[data-theme="catch22"] {
+  --c22-edge: #7de9ff;
+  --c22-shadow: #000000;
+}
+[data-theme="catch22-light"] {
+  --c22-edge: #14123f;
+  --c22-shadow: #14123f;
+}
+
+/* ---------- Page ---------- */
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  background-color: var(--color-base-100);
+  /* graph-paper grid + two soft glows */
+  background-image:
+    radial-gradient(ellipse at 12% 0%, color-mix(in oklab, var(--color-secondary) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse at 92% 8%, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 50%),
+    linear-gradient(color-mix(in oklab, var(--color-primary) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-primary) 8%, transparent) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px, 32px 32px;
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+h1 {
+  font-weight: 800;
+  text-shadow: 2px 2px 0 color-mix(in oklab, var(--color-secondary) 65%, transparent);
+}
+
+::selection {
+  background: var(--color-secondary);
+  color: var(--color-secondary-content);
+}
+
+/* chunky scrollbars, very 2003 */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base-200);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border: 2px solid var(--color-base-200);
+  border-radius: 8px;
+}
+
+/* line clamp helper for card titles */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Components ---------- */
+
+/* a "window": title bar + hard drop shadow */
+.c22-window {
+  border: 2px solid var(--c22-edge);
+  border-radius: var(--radius-box);
+  background: var(--color-base-200);
+  box-shadow: 5px 5px 0 var(--c22-shadow);
+  overflow: hidden;
+}
+.c22-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+  color: #0c0b2e;
+  border-bottom: 2px solid var(--c22-edge);
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.c22-dots {
+  display: flex;
+  gap: 4px;
+}
+.c22-dots i {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #0c0b2e;
+  background: #fff;
+  border-radius: 3px;
+}
+
+/* anime cards / resume cards */
+.c22-card {
+  border: 2px solid var(--c22-edge);
+  border-radius: var(--radius-box);
+  background: var(--color-base-200);
+  box-shadow: 4px 4px 0 var(--c22-shadow);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+a.c22-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--color-secondary);
+}
+
+.c22-error {
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-box);
+  background: color-mix(in oklab, var(--color-error) 14%, var(--color-base-200));
+  box-shadow: 4px 4px 0 var(--c22-shadow);
+  padding: 1rem 1.25rem;
+}
+
+/* scrolling ticker */
+.c22-ticker {
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+  color: #0c0b2e;
+  border-bottom: 2px solid var(--c22-edge);
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.c22-ticker-track {
+  display: flex;
+  width: max-content;
+  padding: 0.3rem 0;
+  animation: c22-marquee 45s linear infinite;
+}
+.c22-ticker-track > div {
+  display: flex;
+  gap: 3rem;
+  padding-right: 3rem;
+  white-space: nowrap;
+}
+@keyframes c22-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.c22-logo {
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-primary) 45%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(2px 2px 0 var(--c22-shadow));
+}
+.c22-blink {
+  animation: c22-blink 1s steps(2, start) infinite;
+}
+@keyframes c22-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* LCD-style visit counter + 88x31-style badges */
+.c22-counter {
+  display: inline-flex;
+  gap: 2px;
+}
+.c22-counter span {
+  font-family: var(--font-pixel);
+  font-size: 1rem;
+  padding: 0.1rem 0.35rem;
+  background: #000;
+  color: var(--color-accent);
+  border: 1px solid var(--c22-edge);
+  border-radius: 3px;
+}
+.c22-badge88 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 31px;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+  color: #0c0b2e;
+  border: 2px outset var(--c22-edge);
+  background: linear-gradient(180deg, #ffffff, var(--color-primary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c22-ticker-track,
+  .c22-blink {
+    animation: none;
+  }
+}
+
+/* ---------- DaisyUI parts, restyled ---------- */
+.btn {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: none;
+  border-width: 2px;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+/* glossy "web 2.0" buttons */
+.btn-primary,
+.btn-secondary,
+.btn-accent,
+.btn-success,
+.btn-error {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.badge {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+  border-radius: 0.25rem;
+}
+
+/* sunken, bevelled inputs */
+.input,
+.select {
+  border-width: 2px;
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.tabs-box {
+  border: 2px solid var(--c22-edge);
+}
+.tab {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
